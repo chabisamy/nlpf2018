@@ -93,13 +93,21 @@ class ChabiPlayer extends Player
             if ($last/($this->result->getNbRound()+1) > 0.36)
             {
                 if ($this->result->getLastChoiceFor($this->opponentSide) == $scissor)
-                return $rock; 
+                return $paper; 
                 elseif ($this->result->getLastChoiceFor($this->opponentSide) == $rock)
-                return $paper;
-                else
                 return $scissor;
+                else
+                return $rock;
             }
-            else return paper;
+            else 
+            {
+                if ($this->result->getLastChoiceFor($this->opponentSide) == $scissor)
+                return $paper; 
+                elseif ($this->result->getLastChoiceFor($this->opponentSide) == $rock)
+                return $scissor;
+                else
+                return $rock;
+            }
                                           
         return $rock;
     }
