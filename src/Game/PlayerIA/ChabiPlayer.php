@@ -41,8 +41,65 @@ class ChabiPlayer extends Player
         // How can i display the result of each round ? $this->prettyDisplay()
         // -------------------------------------    -----------------------------------------------------
 
-        $choice = parent::scissorsChoice();
+        $paper = parent::paperChoice();
+        $scissor = parent::scissorsChoice();
+        $rock = parent::rockChoice();
 
-        return $choice;
+        if ($this->result->getNbRound() == 0){
+            return $paper;
+        }
+
+        if($this->result->getNbRound() == 1){
+            return $paper;
+        }
+        
+        if($this->result->getNbRound() == 3){
+            return $paper;
+        }
+
+        if($this->result->getNbRound() == 4){
+            return $paper;    
+        }
+        
+        if($this->result->getNbRound() == 5){
+            return $scissor;                 
+        }
+        
+        if($this->result->getNbRound() == 6){
+            return $rock;                             
+        }
+
+        if($this->result->getNbRound() == 7){
+            return $rock;                            
+        }  
+        
+        if($this->result->getNbRound() == 8){
+            return $paper;                                   
+        }
+        
+        if($this->result->getNbRound() == 9){
+            return $paper;                                   
+        }
+        
+        $last = 1;
+            for ($i = 0; $i < $this->result->getNbRound(); $i++)
+            {
+                $oppo = $this->result->getChoicesFor($this->opponentSide);
+
+                if($this->result->getLastChoiceFor($this->opponentSide) == $oppo[$i]){
+                    $last++;
+                }
+            }
+            if ($last/($this->result->getNbRound()+1) > 0.36)
+            {
+                if ($this->result->getLastChoiceFor($this->opponentSide) == $scissor)
+                return $rock; 
+                elseif ($this->result->getLastChoiceFor($this->opponentSide) == $rock)
+                return $paper;
+                else
+                return $scissor;
+            }
+                                          
+        return $rock;
     }
 };
